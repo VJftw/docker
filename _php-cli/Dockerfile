@@ -12,4 +12,4 @@ RUN apt-get update && apt-get install -y php5-cli php5-intl php5-curl php5-mysql
 
 RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/cli/php.ini
 
-CMD ["/usr/sbin/php5-cli", "--nodaemonize"]
+CMD ["/usr/bin/php", "-v"]
