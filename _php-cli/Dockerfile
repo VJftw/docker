@@ -10,9 +10,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 
 RUN apt-get update && apt-get install -y php5-cli php5-intl php5-curl php5-mysql php5-sqlite php5-json
 
-RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/fpm/php.ini
-RUN sed -i 's#.*listen =.*#listen=9000#g' /etc/php5/fpm/pool.d/www.conf
-RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf
+RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/cli/php.ini
 
-EXPOSE 9000
-CMD ["/usr/sbin/php5-fpm", "--nodaemonize"]
+CMD ["/usr/sbin/php5-cli", "--nodaemonize"]
