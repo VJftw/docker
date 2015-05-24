@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM vjftw/ubuntu
 MAINTAINER VJ Patel <meetthevj@gmail.com>
 
 # Disable frontend dialogs
