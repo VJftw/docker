@@ -1,4 +1,4 @@
-FROM vjftw/ubuntu
+FROM ubuntu:14.04
 MAINTAINER VJ Patel <meetthevj@gmail.com>
 
 # Disable frontend dialogs
@@ -11,6 +11,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 RUN apt-get update && apt-get install -y php5-cli php5-intl php5-curl php5-mysql php5-sqlite php5-json
 
 RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/cli/php.ini
+
+WORKDIR /app
 
 CMD ["-v"]
 ENTRYPOINT ["/usr/bin/php"]

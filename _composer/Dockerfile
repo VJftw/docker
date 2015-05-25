@@ -7,7 +7,9 @@ RUN mv composer.phar /usr/local/bin/composer
 # Install git
 RUN echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main" > /etc/apt/sources.list.d/git-core-ubuntu-ppa-trusty.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E1DF1F24
-RUN sudo apt-get update && sudo apt-get install -y git
+RUN apt-get update && sudo apt-get install -y git
+
+WORKDIR /app
 
 CMD ["--version"]
 ENTRYPOINT ["/usr/local/bin/composer", "--ansi"]
