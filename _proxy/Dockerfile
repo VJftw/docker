@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y nginx
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-VOLUME /etc/nginx/sites-enabled
+COPY proxy.conf /etc/nginx/sites-enabled/proxy
 
 EXPOSE 80
 CMD ["/usr/sbin/nginx"]
