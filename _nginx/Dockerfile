@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y nginx
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-VOLUME /etc/nginx/sites-enabled
+RUN rm /etc/nginx/sites-enabled/default
+VOLUME /etc/nginx/sites-enabled/default
 
 EXPOSE 80
 CMD ["/usr/sbin/nginx"]
