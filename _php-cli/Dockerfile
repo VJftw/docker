@@ -18,7 +18,7 @@ RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/cli/ph
 
 USER docker
 
-WORKDIR /app
+WORKDIR /app_data
 
 CMD ["-v"]
 ENTRYPOINT ["/usr/bin/php"]
