@@ -1,6 +1,7 @@
 FROM vjftw/php-cli
 MAINTAINER VJ Patel <meetthevj@gmail.com>
 
+USER root
 RUN php -r "readfile('https://getcomposer.org/installer');" | php
 RUN mv composer.phar /usr/local/bin/composer
 
@@ -11,5 +12,6 @@ RUN apt-get update && sudo apt-get install -y git
 
 WORKDIR /app
 
+USER docker
 CMD ["--version"]
 ENTRYPOINT ["/usr/local/bin/composer", "--ansi"]

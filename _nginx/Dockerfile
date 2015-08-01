@@ -1,8 +1,8 @@
-FROM ubuntu:14.04
+# docker build -t vjftw/nginx:<commit> .
+FROM vjftw/ubuntu:14.04
 MAINTAINER VJ Patel <meetthevj@gmail.com>
 
-# Disable frontend dialogs
-ENV DEBIAN_FRONTEND noninteractive
+USER root
 
 # Add nginx mainline source
 RUN echo "deb http://ppa.launchpad.net/nginx/development/ubuntu trusty main" > /etc/apt/sources.list.d/nginx-development-trusty.list
@@ -14,6 +14,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 RUN rm /etc/nginx/sites-enabled/default
 VOLUME /etc/nginx/sites-enabled
+
+USER docker
 
 EXPOSE 80
 CMD ["/usr/sbin/nginx"]

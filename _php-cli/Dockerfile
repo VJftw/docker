@@ -1,5 +1,9 @@
-FROM ubuntu:14.04
+# docker build -t vjftw/php:cli-<commit> .
+# docker tag vjftw/php-cli
+FROM vjftw/ubuntu:14.04
 MAINTAINER VJ Patel <meetthevj@gmail.com>
+
+USER root
 
 # Disable frontend dialogs
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,6 +15,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
 RUN apt-get update && apt-get install -y php5-cli php5-intl php5-curl php5-mysql php5-sqlite php5-json
 
 RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/cli/php.ini
+
+USER docker
 
 WORKDIR /app
 
