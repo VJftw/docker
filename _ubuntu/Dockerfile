@@ -5,7 +5,7 @@ MAINTAINER VJ Patel <meetthevj@gmail.com>
 
 # Add docker user and group
 RUN addgroup --gid 999 docker
-RUN adduser --no-create-home --uid 999 --ingroup docker --gid 999 --disabled-login --disabled-password
+RUN adduser --no-create-home --uid 999 --gid 999 --disabled-login --disabled-password --gecos "" docker
 
 # Disable frontend dialogs
 ENV DEBIAN_FRONTEND noninteractive
