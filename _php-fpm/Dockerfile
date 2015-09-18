@@ -1,21 +1,18 @@
 # docker build -t vjftw/proxy:<commit> .
 
-FROM vjftw/ubuntu:14.04
+FROM vjftw/alpine
 MAINTAINER VJ Patel <meetthevj@gmail.com>
 
 USER root
 
-# Add deb.sury php5.6 source
-RUN echo "deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main" > /etc/apt/sources.list.d/ondrej-php5-5_6-trusty.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C
+# Install PHP
+RUN apk add --update php-ctype php-dom php-pdo_mysql php-pdo_sqlite php-json php-intl php-curl php-opcache php-fpm
+RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php/php.ini
 
-RUN apt-get update && apt-get install -y php5-fpm php5-intl php5-curl php5-mysql php5-sqlite php5-json
+COPY php-fpm.conf /etc/php/php-fpm.conf
 
-RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php5/fpm/php.ini
-RUN sed -i 's#.*listen =.*#listen=9000#g' /etc/php5/fpm/pool.d/www.conf
-RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf
-
-USER docker
+# Commented out as causes several ms delay when under load
+# RUN sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php/php-fpm.conf
 
 EXPOSE 9000
-CMD ["/usr/sbin/php5-fpm", "--nodaemonize"]
+CMD ["/usr/bin/php-fpm", "--nodaemonize"]
