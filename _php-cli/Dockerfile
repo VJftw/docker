@@ -1,15 +1,15 @@
-# docker build -t vjftw/php:cli-<commit> .
+# docker build -t vjftw/php-cli:<commit> .
 # docker tag vjftw/php-cli
-FROM alpine:latest
+
+FROM vjftw/alpine
 MAINTAINER VJ Patel <meetthevj@gmail.com>
 
-RUN mkdir -p /app
-
+USER root
 # Install PHP
 RUN apk add --update php-cli php-ctype php-dom php-pdo_mysql php-pdo_sqlite php-json php-intl php-curl php-opcache
-
 RUN sed -i 's#.*date.timezone=.*#date.timezone=Europe/London#g' /etc/php/php.ini
 
+USER docker
 WORKDIR /app
 
 CMD ["-v"]
