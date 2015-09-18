@@ -11,5 +11,7 @@ RUN adduser -H -u 999 -G docker -D -g "" -S docker
 
 # Create /app directory
 RUN mkdir -p /app && chmod -R 770 /app && chown -R docker:docker /app
+WORKDIR /app
 
 USER docker
+
