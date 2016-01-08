@@ -7,8 +7,10 @@ ENV CONTAINER_UID 1000
 ENV CONTAINER_GROUP jenkins
 ENV CONTAINER_GID 1000
 
-RUN /usr/sbin/groupadd --gid $CONTAINER_GID jenkins && \
-    /usr/sbin/useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --create-home --shell /bin/bash jenkins
+RUN groupadd --gid $CONTAINER_GID jenkins && \
+    useradd --uid $CONTAINER_UID --gid $CONTAINER_GID --create-home --shell /bin/bash jenkins
+
+RUN groupadd --gid 999 docker && usermod -aG docker jenkins
 
 # install git, jdk, curl
 RUN apt-get install -y curl wget software-properties-common
