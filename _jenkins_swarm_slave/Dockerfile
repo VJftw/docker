@@ -10,5 +10,5 @@ RUN /tmp/tools.sh
 
 USER jenkins
 
-ENTRYPOINT ["/opt/jenkins-swarm/docker-entrypoint.sh"]
+ENTRYPOINT ["/home/jenkins/docker-entrypoint.sh"]
 CMD ["swarm"]
