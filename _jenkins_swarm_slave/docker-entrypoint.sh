@@ -44,7 +44,7 @@ unset JENKINS_PASSWORD
 unset JENKINS_MASTER_URL
 
 if [ "$1" = 'swarm' ]; then
-  /bin/bash -c "${SWARM_JAVA_HOME}/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /home/jenkins/swarm-client-jar-with-dependencies.jar ${jenkins_default_parameters} -master ${jenkins_master} ${jenkins_executors} ${swarm_labels} ${jenkins_user} ${jenkins_swarm_parameters}"
+  /bin/bash -c "/usr/bin/java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /home/jenkins/swarm-client-jar-with-dependencies.jar ${jenkins_default_parameters} -master ${jenkins_master} ${jenkins_executors} ${swarm_labels} ${jenkins_user} ${jenkins_swarm_parameters}"
 fi
 
 exec "$@"

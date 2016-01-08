@@ -20,7 +20,6 @@ RUN apt-get install -y openjdk-7-jdk
 
 # install swarm-slave
 ENV SWARM_HOME /home/jenkins
-ENV SWARM_JAVA_HOME=/opt/java/jdk${JAVA_VERSION}
 ENV SWARM_VERSION 2.0
 RUN wget --no-check-certificate --directory-prefix=${SWARM_HOME} \
       http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/plugins/swarm-client/${SWARM_VERSION}/swarm-client-${SWARM_VERSION}-jar-with-dependencies.jar  && \
@@ -31,9 +30,6 @@ RUN wget --no-check-certificate --directory-prefix=${SWARM_HOME} \
 RUN apt-get clean
 
 RUN gem install rake
-USER jenkins
-RUN ruby --version
-
 
 # docker entrypoint env variables
 ENV JAVA_VM_PARAMETERS=
@@ -44,8 +40,10 @@ ENV JENKINS_PASSWORD=
 ENV SWARM_CLIENT_EXECUTORS=
 ENV SWARM_CLIENT_LABELS=
 
+COPY docker-entrypoint.sh /home/jenkins/docker-entrypoint.sh
+RUN chmod +x /home/jenkins/docker-entrypoint.sh
+
 USER $CONTAINER_UID
 WORKDIR /home/jenkins
-COPY docker-entrypoint.sh /home/jenkins/docker-entrypoint.sh
 ENTRYPOINT ["/home/jenkins/docker-entrypoint.sh"]
 CMD ["swarm"]
