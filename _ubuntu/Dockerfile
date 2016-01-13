@@ -29,3 +29,5 @@ RUN adduser --no-create-home --uid 1000 --gid 1000 --disabled-login --disabled-p
 RUN mkdir -p /app
 RUN chmod -R 770 /app
 RUN chown -R app:app /app
+
+WORKDIR /app
