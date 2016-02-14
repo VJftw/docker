@@ -22,7 +22,7 @@ RUN wget --no-check-certificate --directory-prefix=${SWARM_HOME} \
 
 RUN apt-get clean
 
-RUN gem install rake
+RUN gem install rake docker-api
 
 # docker entrypoint env variables
 ENV SWARM_VM_PARAMETERS=
