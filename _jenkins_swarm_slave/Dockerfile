@@ -4,8 +4,7 @@ MAINTAINER VJ Patel <vj@vjpatel.me>
 # install git, jdk, curl
 RUN apt-get install -y wget
 RUN apt-add-repository ppa:brightbox/ruby-ng
-RUN echo 'deb http://apt.dockerproject.org/repo ubuntu-trusty main' > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y --force-yes git ruby2.2 openjdk-7-jdk docker-engine
+RUN apt-get update && apt-get install -y git ruby2.2 openjdk-7-jdk
 
 
 # install swarm-slave
