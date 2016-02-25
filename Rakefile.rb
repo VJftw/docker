@@ -11,7 +11,9 @@ task :build, :dir do |t, args|
 
   image = Docker::Image.build_from_dir(Dir.getwd, {
       'dockerfile' => "Dockerfile",
-      't' => tag
+      't' => tag,
+      'nocache' => true,
+      'pull' => true
   }) do |v|
     if (log = JSON.parse(v)) && log.has_key?('stream')
       $stdout.puts log['stream']
