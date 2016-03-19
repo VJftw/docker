@@ -6,12 +6,14 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6
 RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
 # install git, jdk, curl
-RUN apk add --update git ruby curl bash && \
+RUN apk add --update git openssh-client ruby ruby-dev build-base libffi-dev curl bash && \
     rm -rf /var/cache/apk/* && \
     gem install --no-rdoc --no-ri \
     bundler \
     rake \
-    docker-api
+    docker-rake-flow &&\
+    apk del ruby-dev build-base libffi-dev && \
+    rm -rf /var/cache/apk/*
 
 # install swarm-slave
 ENV SWARM_HOME /app
