@@ -54,5 +54,4 @@ unset SWARM_MASTER_URL
 
 jenkins_workdir="-fsroot ${SWARM_WORKDIR}"
 
-/bin/bash -c "java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /app/swarm-client-jar-with-dependencies.jar ${jenkins_default_parameters} -master ${jenkins_master} ${jenkins_executors} ${swarm_labels} ${jenkins_user} ${jenkins_swarm_parameters} ${jenkins_workdir}"
-
+/bin/bash -c "java -Dfile.encoding=UTF-8 ${java_vm_parameters} -jar /app/swarm-client.jar ${jenkins_default_parameters} -master ${jenkins_master} ${jenkins_executors} ${swarm_labels} ${jenkins_user} ${jenkins_swarm_parameters} ${jenkins_workdir}"
