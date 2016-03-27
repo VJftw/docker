@@ -1,10 +1,10 @@
-FROM blacklabelops/jenkins:alpine
+FROM blacklabelops/jenkins:preview-2.0
 
 EXPOSE 8080 80 50000
 
 USER root
 
-RUN apk add --update nginx
+RUN apk add --update nginx git openssh-client
 
 # Set up S6 supervisor
 ENV S6_VERSION v1.17.2.0
