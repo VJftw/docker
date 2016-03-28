@@ -11,7 +11,7 @@ RUN apk add --update git openssh-client ruby ruby-dev build-base libffi-dev curl
     gem install --no-rdoc --no-ri \
     bundler \
     rake \
-    docker-rake-flow &&\
+    docker-rake-flow && \
     apk del ruby-dev build-base libffi-dev && \
     rm -rf /var/cache/apk/*
 
