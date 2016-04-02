@@ -5,14 +5,17 @@ ENTRYPOINT ["/init"]
 ADD https://github.com/just-containers/s6-overlay/releases/download/v1.11.0.1/s6-overlay-amd64.tar.gz /tmp/
 RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
-# install git, jdk, curl
-RUN apk add --update git openssh-client ruby ruby-dev build-base libffi-dev curl bash && \
+# Add testing repository
+RUN echo @testing http://dl-4.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
+
+# install git, jdk, curl, pv
+RUN apk add --update git pv@testing openssh-client ruby ruby-dev build-base libffi-dev curl bash && \
     rm -rf /var/cache/apk/* && \
     gem install --no-rdoc --no-ri \
     bundler \
     rake \
     docker-rake-flow && \
-    apk del ruby-dev build-base libffi-dev && \
+    apk del --force ruby-dev build-base libffi-dev && \
     rm -rf /var/cache/apk/*
 
 # install swarm-slave
