@@ -2,6 +2,9 @@
 cd /app
 set -o errexit
 
+echo "Cleaning Workspace"
+rm -rf /opt/jenkins/
+
 if [ -n "${SWARM_DELAYED_START}" ]; then
   sleep ${SWARM_DELAYED_START}
 fi
