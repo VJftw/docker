@@ -9,13 +9,13 @@ RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 RUN echo @testing http://dl-4.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
 
 # install git, jdk, curl, pv
-RUN apk add --update git pv@testing openssh-client ruby ruby-dev build-base libffi-dev curl bash && \
+RUN apk add --update git pv@testing openssh-client curl bash python3 python3-dev && \
     rm -rf /var/cache/apk/* && \
-    gem install --no-rdoc --no-ri \
-    bundler \
-    rake \
-    docker-rake-flow && \
-    apk del --force ruby-dev build-base libffi-dev && \
+    curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py && \
+    pip install \
+    invoke \
+    docker-py && \
+    apk del --force python3-dev && \
     rm -rf /var/cache/apk/*
 
 # install swarm-slave
