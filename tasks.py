@@ -5,7 +5,7 @@ import json
 import getpass
 import time
 
-cli = Client(base_url='unix://var/run/docker.sock', timeout=600)
+cli = Client(base_url='unix://var/run/docker.sock', timeout=600, version='auto')
 CI = True if os.getenv('CI') else False
 
 def __print_line(line):
