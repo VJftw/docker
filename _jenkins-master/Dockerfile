@@ -1,4 +1,4 @@
-FROM blacklabelops/jenkins:alpine.2.2
+FROM blacklabelops/jenkins:alpine
 
 EXPOSE 8080 80 50000
 
