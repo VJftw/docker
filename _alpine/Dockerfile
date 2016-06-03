@@ -1,13 +1,8 @@
 FROM alpine:latest
 MAINTAINER VJ Patel <vj@vjpatel.me>
 
-# Add app user and group
-RUN addgroup -g 999 app
-RUN adduser -H -u 999 -G app -D -g "" -S app
-
 # Create /app directory
-RUN mkdir -p /app && chmod -R 770 /app && chown -R app:app /app
-WORKDIR /app
+RUN mkdir -p /app && chmod -R 770 /app
 
 # Set up S6 supervisor
 ENV S6_VERSION v1.17.2.0
