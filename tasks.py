@@ -13,7 +13,7 @@ def __check_service(service):
 
 
 @task
-def build(service):
+def build(ctx, service):
     __check_service(service)
     cli = Client(
         base_url='unix://var/run/docker.sock', timeout=600, version='auto')
