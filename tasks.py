@@ -46,6 +46,11 @@ def publish(ctx, service):
         return
 
     base_name = __get_base_name(service)
+    time_name = "{0}:{1}".format(
+        __get_base_name(service),
+        time.strftime("%Y%m%d")
+    )
+
 
     lxc.Docker.login(cli)
 
