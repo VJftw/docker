@@ -1,34 +1,53 @@
 import os
 import time
 from invoke import task
-from docker import Client
-from idflow import Utils, Docker
+from docker import APIClient
+from invoke_tools import lxc, system, vcs
 
-Utils.print_system_info()
+cli = APIClient(base_url='unix://var/run/docker.sock', timeout=600, version="auto")
 
+system.Info.print_all()
+
+repo = vcs.Git()
+repo.print_all()
 
 def __check_service(service):
     if not service:
         exit("Please define a service")
 
+def __get_base_name(service):
+    return "{0}/{1}".format(
+        os.getenv("DOCKER_USERNAME") or "vjftw",
+        service
+    )
 
 @task
 def build(ctx, service):
     __check_service(service)
-    cli = Client(
-        base_url='unix://var/run/docker.sock', timeout=600, version='auto')
-    cli, username = Docker.login(cli)
 
     os.chdir("_{0}".format(service))
 
-    base_name = "{0}/{1}".format(
-        username,
-        service
+    time_name = "{0}:{1}".format(
+        __get_base_name(service),
+        time.strftime("%Y%m%d")
     )
-    time_name = "{0}:{1}".format(base_name, time.strftime("%Y%m%d"))
 
-    # print("Building {0}".format(time_name))
-    Docker.build(cli, "Dockerfile", time_name)
+    lxc.Docker.build(cli,
+        dockerfile="Dockerfile",
+        tag=time_name
+    )
+
+@task
+def publish(ctx, service):
+    __check_service(service)
+
+    if repo.get_branch() != "master":
+        print("Not on master")
+        return
+
+    base_name = __get_base_name(service)
+
+    lxc.Docker.login(cli)
 
     print("#")
     print("# Tagging as {0}".format(base_name))
@@ -40,4 +59,7 @@ def build(ctx, service):
         tag="latest"
     )
 
-    Docker.push(cli, [time_name, base_name])
+    lxc.Docker.push(cli, [
+        time_name,
+        base_name
+    ])
