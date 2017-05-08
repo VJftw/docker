@@ -42,7 +42,7 @@ def publish(ctx, service):
     __check_service(service)
 
     if repo.get_branch() != "master":
-        print("Not on master")
+        print("Not on master (on {0})".format(repo.get_branch()))
         return
 
     base_name = __get_base_name(service)
