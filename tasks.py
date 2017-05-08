@@ -4,13 +4,12 @@ from invoke import task
 from docker import APIClient
 from invoke_tools import lxc, system, vcs
 
-cli = APIClient(base_url='unix://var/run/docker.sock', timeout=600, version='auto')
+cli = APIClient(base_url='unix://var/run/docker.sock', timeout=600, version="auto")
 
 system.Info.print_all()
 
 repo = vcs.Git()
 repo.print_all()
-
 
 def __check_service(service):
     if not service:
