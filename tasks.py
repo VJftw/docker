@@ -42,6 +42,9 @@ def build(ctx, service):
 def publish(ctx, service):
     __check_service(service)
 
+    if repo.get_branch() != "master":
+        exit("Not on master")
+
     base_name = __get_base_name(service)
 
     lxc.Docker.login(cli)
