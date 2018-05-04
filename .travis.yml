@@ -1,17 +1,11 @@
+language: generic
 sudo: required
 services:
-- docker
-addons:
-  apt:
-    packages:
-    - python3
-    - python3-pip
-before_install:
-- sudo pip3 install --upgrade pip
-- sudo pip3 install --upgrade -r requirements.txt
+  - docker
 env:
   matrix:
-  - SERVICE=s3-sync
+  - IMAGE=go-dep/1.9
+  - IMAGE=go-dep/1.10
   global:
   # DOCKER_EMAIL
   - secure: i+Jx5CN6ulK1F9QN86Ss79uWaQJqoCYhxVvpbxzFM5qlQ5nFJLMh6KKOrn1+9qq5ij97LIVtj6aLB5JWxf3OrKwKIECHfSRjsnnHZbZ/OZXFK1DpHA8djh3TpA4XLgtg1pszwKn9xep4esYfHO2FT9fiA9MVFFgLU8wwgq64gSnSPI7PKuNjlHVyV2K4OMCnsPhQ+FI/d3iLWW/1PIJejPsNzw1lEEgPWPP0gEwOngU8au7uzjnjNny8jHgoVyzaEBh5Ab3r16yFBlVU2AqAlfGjPk+Fg+HQTK4nw0wZjyJ5WgkARBC3lPpxsk0KhqXE66wBlBOHGBe1glQXSYL6SPQ8uC/jvVKV99zkGEizxqlLgm/U5hY/ONVpSNlbcv6olNLhhbcdm+9K3LTiRIvyr5ip1+t7pTo7JQjJwH+EjrQDZcUSA6Y9w/q7FfxEbZbX16GTGn2VLd4q/xoge997/3yzUHGuoNCwNjGzYxs3i1+nLmBR6PzklJ5AqjWK5Ca8h1ClskpFUllwtp1+6mdcX987VpFnNRNsId8o8fLJNRllD43SlDr8lTZM1XvaJXX5lAByYcJY9fDi0OK0Doo4HYDHBaMxT208aODjM3rFNT4M0RoftGHACZnY41CovkcPNmSV8FjHaf2v2zCHuPxiB/Ur0sRyAf6N2YH73BKMYEc=
@@ -20,7 +14,10 @@ env:
   # DOCKER_PASSWORD
   - secure: Miau/+R9k0htq7f4vL4SdUQkLQbsM3IH8SlrrCjMUvrqU43Hbd5cQtG52ElgjE16T2fiGFCreabEuQi4zPbEehgWUTM5NKBfEb7VoBPMmItQxGopTiYNYkQ3SVwj+sYgvqFx31xtJmxIxnPnn9JfLstH1roYCZGcP8dYk+S72PG/cdnHW4nX2xVDiXefAokelQqdGSqphY3WI+fo81nXtKjIBBsqcXRuCSOYIXZEaGdvGtRg9Q8espXkZQICn6gd1BilQIE7iKZd/+VDc0RzwM4wwIQOxwFYM/eruZyagLMYOPw26I6WO3zONkDLGrj2n2iqBT/mKxPkVX7nNB2H8IxAG7V3KAA/hprPUJnSGAc0d4jvSTBfhTy6f8LjMZrJr1Vkm4VHk80ysVrd+vSq7lGRepm6al8YPQlbu85xbtJ40Un5Y5cHdR0wcLgto3Lui12OOUTka4xbGn0zfS+aukQZHXlHa2F5uoQhOx51erhptoIiIOZwqwOXbUa2bGw1XRV9tkYLcRkPYZgXMan1RHIxj9YTxCPKRjOVd6LDju67GKHE50Ru3n7Ypk1LIdmxYRQHCe1iACVeMPMHVvqjl65Vdc2M4ylz62/KRCfvpBA9ZAYb4wEMC3rUtOhCO0jcT8Gmjfn/xaogaZzFA/9/HrJzO2KyTK6UHJnb7JdKmEc=
 script:
-- python --version
-- docker --version
-- invoke build $SERVICE
-- invoke publish $SERVICE
+  - cd ${TRAVIS_BUILD_DIR}/${IMAGE} && make build 
+  - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+  - cd ${TRAVIS_BUILD_DIR}/${IMAGE} && make publish
+
+branches:
+  only:
+  - master
