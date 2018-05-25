@@ -2,6 +2,7 @@
 
 echo "Running initial sync from ${SOURCE} to ${DESTINATION}"
 aws s3 sync ${SOURCE} ${DESTINATION}
+chmod -R ${PERMISSIONS} ${DESTINATION}
 
 echo "${SCHEDULE} aws s3 sync ${DESTINATION} ${SOURCE}" > /etc/crontabs/root
 echo "Added cron for syncing ${DESTINATION} to ${SOURCE} every ${SCHEDULE}"
