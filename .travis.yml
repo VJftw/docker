@@ -4,9 +4,9 @@ services:
   - docker
 env:
   matrix:
-  - IMAGE=_go-dep/1.9
-  - IMAGE=_go-dep/1.10
-  - IMAGE=_s3-sync
+  - IMAGE=go-dep/1.9
+  - IMAGE=go-dep/1.10
+  - IMAGE=s3-sync
   - IMAGE=terraria
   global:
   # DOCKER_EMAIL
