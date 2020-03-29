@@ -1,7 +1,7 @@
 # FROM ubuntu:xenial
 FROM alpine:latest
 
-ENV TSHOCK_VERSION 4.3.25
+ENV TSHOCK_VERSION 4.3.26
 
 # RUN apt-get update && apt-get install -y mono-complete unzip
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && apk add --update mono@testing unzip tzdata
