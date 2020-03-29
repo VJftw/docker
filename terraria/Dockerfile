@@ -9,7 +9,7 @@ RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/re
 ENV TZ=Europe/London
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ADD https://github.com/Pryaxis/TShock/releases/download/v4.3.25/tshock_${TSHOCK_VERSION}.zip /tshock.zip
+ADD https://github.com/Pryaxis/TShock/releases/download/v${TSHOCK_VERSION}/tshock_${TSHOCK_VERSION}.zip /tshock.zip
 RUN unzip tshock.zip -d /tshock
 
 VOLUME /world
